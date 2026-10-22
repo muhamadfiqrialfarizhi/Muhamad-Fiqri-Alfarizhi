@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Pertemuan 5 - Hyperlink</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Style ala tag <hr color="blue" size="3"> klasik tapi versi modern */
+        .blue-hr {
+            border: 0;
+            height: 3px;
+            background-color: #2563eb;
+            margin: 12px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Container Utama -->
+    <div class="max-w-4xl mx-auto w-full p-4 md:p-8 flex-grow">
+        
+        <!-- Header & Navigasi Utama -->
+        <header class="mb-6">
+            <h1 class="text-xl font-bold text-slate-700 mb-2">  Portofolio Saya</h1>
+            
+            <!-- Garis Biru Atas -->
+            <div class="blue-hr"></div>
+
+            <!-- Menu Navigasi Sederhana -->
+            <nav class="py-2 flex flex-wrap gap-2 text-base md:text-lg font-semibold">
+                <button onclick="switchTab('home')" id="nav-home" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">Home</button>
+                <span class="text-slate-400 font-normal">|</span>
+                <button onclick="switchTab('profil')" id="nav-profil" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">Profil</button>
+                <span class="text-slate-400 font-normal">|</span>
+                <button onclick="switchTab('about')" id="nav-about" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">About</button>
+                <span class="text-slate-400 font-normal">|</span>
+                <button onclick="switchTab('gallery')" id="nav-gallery" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">Gallery</button>
+                <span class="text-slate-400 font-normal">|</span>
+                <button onclick="switchTab('kontak')" id="nav-kontak" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">Kontak</button>
+            </nav>
+
+            <!-- Garis Biru Bawah -->
+            <div class="blue-hr"></div>
+        </header>
+
+        <!-- Dynamic Content Section -->
+        <main class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-slate-200 min-h-[350px]">
+            
+            <!-- 1. PAGE: HOME (Latihan Modul Utama) -->
+            <section id="page-home" class="space-y-4">
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r mb-6">
+                    <p class="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">Tampilan Utama Modul</p>
+                    <p class="text-sm text-slate-600">Halaman ini mengimplementasikan skrip dari Latihan 1 Modul Hyperlink.</p>
+                </div>
+
+                <div class="font-mono text-slate-800 leading-relaxed text-base md:text-lg bg-slate-50 p-6 rounded-lg border border-slate-200">
+                    <p class="font-bold text-slate-900 mb-2">Assalammualaikum.Wr.Wb.</p>
+                    <p class="mb-4">
+                        Apakabar semua. Salam kenal ini adalah web perdanaku. Web ini berisi informasi tentang kegemaranku.<br>
+                        Semoga web ini dapat menginspirasi Anda pada waktu liburan.
+                    </p>
+                    <p class="space-x-2">
+                        <span>Kunjungi mesin pencari:</span>
+                        <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline font-semibold hover:text-blue-800">
+                            google
+                        </a>
+                    </p>
+                    <p class="mt-2 space-x-2">
+                        <span>Silakan hubungi saya jika ada yang ingin didiskusikan:</span>
+                        <a href="mailto:muhamadfiqrialfarizhi@gmail.com" class="text-blue-600 underline font-semibold hover:text-blue-800">
+                            email
+                        </a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- 2. PAGE: PROFIL -->
+            <section id="page-profil" class="hidden space-y-4">
+                <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Profil Saya</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                    <div class="col-span-1">
+                        <img src="fiqri.jpg" alt="Foto Profil" class="rounded-xl w-full h-auto shadow-sm">
+                    </div>
+                    <div class="col-span-2 space-y-3 text-slate-700">
+                        <p><strong class="w-32 inline-block">Nama:</strong> MUHAMAD FIQRI AL FARIZHI</p>
+                        <p><strong class="w-32 inline-block">Mata Kuliah:</strong> Pemrograman Web 1</p>
+                        <p><strong class="w-32 inline-block">Institusi:</strong> Universitas Ma'soem</p>
+                        <p><strong class="w-32 inline-block">Pertemuan:</strong> V (Hyperlink)</p>
+                        <hr class="my-4">
+                        <p class="leading-relaxed">
+                            Saya sedang mempelajari dasar-dasar pengembangan web menggunakan HTML dan CSS. Pada modul ke-5 ini, fokus pembahasannya adalah membuat link antar halaman (relative), link luar (absolute), anchor link, serta mailto link.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. PAGE: ABOUT -->
+            <section id="page-about" class="hidden space-y-4">
+                <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Tentang Website Ini</h2>
+                <p class="text-slate-700 leading-relaxed">
+                    Website ini dibuat untuk memenuhi tugas **Pertemuan 5** mata kuliah Pemrograman Web 1 di Universitas Ma'soem.
+                </p>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mt-4">
+                    <h3 class="font-semibold text-slate-800 mb-2">Materi yang Dipelajari:</h3>
+                    <ul class="list-disc list-inside space-y-1 text-slate-600">
+                        <li><strong>Link Relative:</strong> Navigasi antar dokumen HTML lokal.</li>
+                        <li><strong>Link Absolute:</strong> Menghubungkan ke alamat domain luar (seperti Google).</li>
+                        <li><strong>Link Email:</strong> Membuka aplikasi email dengan protokol <code class="bg-slate-200 px-1 py-0.5 rounded text-xs">mailto: Muhamadfiqrialfarizhi@gmail.com</code>.</li>
+                        <li><strong>Anchor Link:</strong> Navigasi ke bagian tertentu pada halaman yang sama.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 4. PAGE: GALLERY -->
+            <section id="page-gallery" class="hidden space-y-4">
+                <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Galeri Kegemaran</h2>
+                <p class="text-slate-600 mb-4">Berikut adalah beberapa kegiatan dan kegemaran yang biasa saya lakukan di waktu liburan:</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="border rounded-lg overflow-hidden bg-slate-50 shadow-sm hover:shadow transition">
+                        <img src="maxv.jpg" alt="Hobi 1" class="w-full h-40 object-cover">
+                        <div class="p-3">
+                            <h4 class="font-bold text-slate-800">Menonton F1</h4>
+                            <p class="text-xs text-slate-500 mt-1">Menonton balapan Formula 1 dengan antusiasme tinggi.</p>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg overflow-hidden bg-slate-50 shadow-sm hover:shadow transition">
+                        <img src="indomi.jpg" alt="Hobi 2" class="w-full h-40 object-cover">
+                        <div class="p-3">
+                            <h4 class="font-bold text-slate-800">Makan Indomie</h4>
+                            <p class="text-xs text-slate-500 mt-1">Memakan Indomie dengan lauk pauk favorit.</p>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg overflow-hidden bg-slate-50 shadow-sm hover:shadow transition">
+                        <img src="susu.jpeg" alt="Hobi 3" class="w-full h-40 object-cover">
+                        <div class="p-3">
+                            <h4 class="font-bold text-slate-800">Graphic Design</h4>
+                            <p class="text-xs text-slate-500 mt-1">mengedit desain grafis dengan berbagai software.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. PAGE: KONTAK -->
+            <section id="page-kontak" class="hidden space-y-4">
+                <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Hubungi Saya</h2>
+                <p class="text-slate-600">Jika Anda memiliki pertanyaan atau ingin berdiskusi, silakan kirim pesan melalui kontak di bawah ini:</p>
+
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 flex flex-col md:flex-row justify-between items-center gap-4 mt-4">
+                    <div>
+                        <h3 class="font-bold text-blue-900 text-lg">Kirim Email Langsung</h3>
+                        <p class="text-sm text-blue-700">Klik tombol di samping untuk membuka aplikasi penyedia email Anda.</p>
+                    </div>
+                    <a href="mailto:muhamadfiqrialfarizhi@gmail.com" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium shadow hover:bg-blue-700 transition whitespace-nowrap">
+                        📧 Kirim Email
+                    </a>
+                </div>
+
+                <div class="border-t pt-4 mt-6">
+                    <p class="text-sm text-slate-500"><strong>Alamat email:</strong> muhamadfiqrialfarizhi@gmail.com</p>
+                    <p class="text-sm text-slate-500"><strong>Telpon:</strong> 082126147757</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-sm text-slate-500 pb-4">
+            <p>&copy; Pemrograman Web 1 - Universitas Ma'soem | Pertemuan V (Hyperlink)</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Navigasi Tab Modular -->
+    <script>
+        function switchTab(tabName) {
+            // Sembunyikan semua section
+            const sections = ['home', 'profil', 'about', 'gallery', 'kontak'];
+            sections.forEach(id => {
+                const page = document.getElementById('page-' + id);
+                const nav = document.getElementById('nav-' + id);
+                
+                if (page) page.classList.add('hidden');
+                if (nav) {
+                    nav.classList.remove('bg-red-100', 'font-bold', 'underline');
+                }
+            });
+
+            // Tampilkan section yang dipilih
+            const activePage = document.getElementById('page-' + tabName);
+            const activeNav = document.getElementById('nav-' + tabName);
+            
+            if (activePage) {
+                activePage.classList.remove('hidden');
+            }
+            if (activeNav) {
+                activeNav.classList.add('bg-red-100', 'font-bold', 'underline');
+            }
+        }
+
+        // Setel tab default ke 'home' saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            switchTab('home');
+        });
+    </script>
+</body>
+</html>
