@@ -5,208 +5,362 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tugas Pertemuan 5 - Hyperlink</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Fraunces', 'serif']
+                    },
+                    colors: {
+                        ink: '#1a1a2e',
+                        accent: '#5b5bd6'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        html { scroll-behavior: smooth; }
+        body { background: #faf9f7; }
+
+        /* Dekorasi latar */
+        .blob {
+            position: fixed;
+            border-radius: 9999px;
+            filter: blur(90px);
+            opacity: .45;
+            z-index: -1;
+            pointer-events: none;
         }
-        /* Style ala tag <hr color="blue" size="3"> klasik tapi versi modern */
-        .blue-hr {
-            border: 0;
-            height: 3px;
-            background-color: #2563eb;
-            margin: 12px 0;
-            width: 100%;
+
+        /* Animasi muncul */
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
+        .page { animation: rise .5s ease both; }
+        .page.hidden { display: none; }
+
+        /* Navigasi */
+        .nav-btn {
+            position: relative;
+            padding: .5rem 1rem;
+            border-radius: 9999px;
+            font-size: .875rem;
+            font-weight: 500;
+            color: #64648a;
+            transition: all .25s ease;
+            white-space: nowrap;
+        }
+        .nav-btn:hover { color: #1a1a2e; }
+        .nav-btn.active {
+            background: #1a1a2e;
+            color: #fff;
+            box-shadow: 0 6px 16px -6px rgba(26,26,46,.5);
+        }
+
+        /* Kartu */
+        .card {
+            background: rgba(255,255,255,.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(26,26,46,.07);
+            border-radius: 1.25rem;
+            box-shadow: 0 1px 2px rgba(26,26,46,.04), 0 12px 32px -16px rgba(26,26,46,.12);
+        }
+
+        /* Teks gradien */
+        .grad-text {
+            background: linear-gradient(120deg, #5b5bd6, #c026d3 60%, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Tombol */
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 1.4rem;
+            border-radius: 9999px;
+            background: #1a1a2e; color: #fff;
+            font-weight: 500; font-size: .9rem;
+            transition: all .25s ease;
+            box-shadow: 0 10px 24px -10px rgba(26,26,46,.6);
+        }
+        .btn-primary:hover { transform: translateY(-2px); background: #5b5bd6; }
+        .btn-ghost {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 1.4rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(26,26,46,.18);
+            color: #1a1a2e;
+            font-weight: 500; font-size: .9rem;
+            transition: all .25s ease;
+        }
+        .btn-ghost:hover { border-color: #5b5bd6; color: #5b5bd6; transform: translateY(-2px); }
+
+        /* Galeri */
+        .gallery-item img { transition: transform .7s ease; }
+        .gallery-item:hover img { transform: scale(1.08); }
+
+        .scroll-hide::-webkit-scrollbar { display: none; }
+        .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+<body class="font-sans text-ink min-h-screen flex flex-col antialiased">
 
-    <!-- Container Utama -->
-    <div class="max-w-4xl mx-auto w-full p-4 md:p-8 flex-grow">
-        
-        <!-- Header & Navigasi Utama -->
-        <header class="mb-6">
-            <h1 class="text-xl font-bold text-slate-700 mb-2">  Portofolio Saya</h1>
-            
-            <!-- Garis Biru Atas -->
-            <div class="blue-hr"></div>
+    <!-- Dekorasi latar -->
+    <div class="blob w-96 h-96 bg-indigo-300 -top-24 -left-24"></div>
+    <div class="blob w-80 h-80 bg-fuchsia-200 top-1/3 -right-24"></div>
+    <div class="blob w-72 h-72 bg-orange-200 bottom-0 left-1/4"></div>
 
-            <!-- Menu Navigasi Sederhana -->
-            <nav class="py-2 flex flex-wrap gap-2 text-base md:text-lg font-semibold">
-                <button onclick="switchTab('home')" id="nav-home" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">Home</button>
-                <span class="text-slate-400 font-normal">|</span>
-                <button onclick="switchTab('profil')" id="nav-profil" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">Profil</button>
-                <span class="text-slate-400 font-normal">|</span>
-                <button onclick="switchTab('about')" id="nav-about" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">About</button>
-                <span class="text-slate-400 font-normal">|</span>
-                <button onclick="switchTab('gallery')" id="nav-gallery" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">Gallery</button>
-                <span class="text-slate-400 font-normal">|</span>
-                <button onclick="switchTab('kontak')" id="nav-kontak" class="px-3 py-1 rounded transition-colors text-red-600 hover:text-red-800 hover:bg-red-50">Kontak</button>
+    <div class="max-w-5xl mx-auto w-full px-5 md:px-8 flex-grow">
+
+        <!-- Header -->
+        <header class="py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <a href="#home" onclick="switchTab('home')" class="flex items-center gap-3">
+                <span class="w-10 h-10 rounded-xl bg-ink text-white grid place-items-center font-serif font-bold text-lg">F</span>
+                <span class="font-serif text-lg font-semibold tracking-tight">Portofolio Saya</span>
+            </a>
+
+            <nav class="card !rounded-full p-1.5 flex gap-1 overflow-x-auto scroll-hide max-w-full">
+                <button onclick="switchTab('home')"    id="nav-home"    class="nav-btn">Home</button>
+                <button onclick="switchTab('profil')"  id="nav-profil"  class="nav-btn">Profil</button>
+                <button onclick="switchTab('about')"   id="nav-about"   class="nav-btn">About</button>
+                <button onclick="switchTab('gallery')" id="nav-gallery" class="nav-btn">Gallery</button>
+                <button onclick="switchTab('kontak')"  id="nav-kontak"  class="nav-btn">Kontak</button>
             </nav>
-
-            <!-- Garis Biru Bawah -->
-            <div class="blue-hr"></div>
         </header>
 
-        <!-- Dynamic Content Section -->
-        <main class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-slate-200 min-h-[350px]">
-            
-            <!-- 1. PAGE: HOME (Latihan Modul Utama) -->
-            <section id="page-home" class="space-y-4">
-                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r mb-6">
-                    <p class="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">Tampilan Utama Modul</p>
-                    <p class="text-sm text-slate-600">Halaman ini mengimplementasikan skrip dari Latihan 1 Modul Hyperlink.</p>
-                </div>
+        <main class="py-6 md:py-10">
 
-                <div class="font-mono text-slate-800 leading-relaxed text-base md:text-lg bg-slate-50 p-6 rounded-lg border border-slate-200">
-                    <p class="font-bold text-slate-900 mb-2">Assalammualaikum.Wr.Wb.</p>
-                    <p class="mb-4">
-                        Apakabar semua. Salam kenal ini adalah web perdanaku. Web ini berisi informasi tentang kegemaranku.<br>
-                        Semoga web ini dapat menginspirasi Anda pada waktu liburan.
-                    </p>
-                    <p class="space-x-2">
-                        <span>Kunjungi mesin pencari:</span>
-                        <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline font-semibold hover:text-blue-800">
-                            google
-                        </a>
-                    </p>
-                    <p class="mt-2 space-x-2">
-                        <span>Silakan hubungi saya jika ada yang ingin didiskusikan:</span>
-                        <a href="mailto:muhamadfiqrialfarizhi@gmail.com" class="text-blue-600 underline font-semibold hover:text-blue-800">
-                            email
-                        </a>
-                    </p>
+            <!-- 1. HOME -->
+            <section id="page-home" class="page">
+                <div class="grid md:grid-cols-5 gap-8 items-center">
+                    <div class="md:col-span-3">
+                        <span class="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase text-accent bg-accent/10 px-3 py-1.5 rounded-full mb-6">
+                            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Web Perdanaku
+                        </span>
+
+                        <h2 class="font-serif text-4xl md:text-6xl font-semibold leading-[1.1] tracking-tight">
+                            Assalamualaikum<br>
+                            <span class="grad-text">Wr. Wb.</span>
+                        </h2>
+
+                        <p class="mt-6 text-slate-600 leading-relaxed text-base md:text-lg max-w-xl">
+                            Apa kabar semua? Salam kenal, ini adalah web perdanaku. Web ini berisi informasi tentang kegemaranku.
+                            Semoga web ini dapat menginspirasi Anda pada waktu liburan.
+                        </p>
+
+                        <div class="mt-8 flex flex-wrap gap-3">
+                            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                                Kunjungi Google
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                            </a>
+                            <a href="mailto:muhamadfiqrialfarizhi@gmail.com" class="btn-ghost">
+                                Hubungi via Email
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Kartu ringkas -->
+                    <div class="md:col-span-2 space-y-4">
+                        <div class="card p-5">
+                            <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">Mesin pencari</p>
+                            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" class="font-serif text-xl font-semibold hover:text-accent transition">google.com &rarr;</a>
+                        </div>
+                        <div class="card p-5">
+                            <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">Diskusi &amp; kontak</p>
+                            <a href="mailto:muhamadfiqrialfarizhi@gmail.com" class="font-serif text-xl font-semibold hover:text-accent transition">Kirim email &rarr;</a>
+                        </div>
+                        <div class="card p-5">
+                            <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">Jelajahi</p>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <a href="#gallery" onclick="switchTab('gallery')" class="text-sm px-3 py-1 rounded-full bg-slate-100 hover:bg-accent hover:text-white transition">Gallery</a>
+                                <a href="#profil" onclick="switchTab('profil')" class="text-sm px-3 py-1 rounded-full bg-slate-100 hover:bg-accent hover:text-white transition">Profil</a>
+                                <a href="#about" onclick="switchTab('about')" class="text-sm px-3 py-1 rounded-full bg-slate-100 hover:bg-accent hover:text-white transition">About</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- 2. PAGE: PROFIL -->
-            <section id="page-profil" class="hidden space-y-4">
-                <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Profil Saya</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                    <div class="col-span-1">
-                        <img src="fiqri.jpg" alt="Foto Profil" class="rounded-xl w-full h-auto shadow-sm">
+            <!-- 2. PROFIL -->
+            <section id="page-profil" class="page hidden">
+                <p class="text-xs uppercase tracking-widest text-accent font-semibold mb-2">Siapa saya</p>
+                <h2 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-8">Profil Saya</h2>
+
+                <div class="card p-6 md:p-8 grid md:grid-cols-3 gap-8 items-start">
+                    <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-gradient-to-br from-indigo-200 via-fuchsia-200 to-orange-200 grid place-items-center">
+                        <img src="fiqri.jpg" alt="Foto Profil" class="w-full h-full object-cover" onerror="this.style.display='none'">
                     </div>
-                    <div class="col-span-2 space-y-3 text-slate-700">
-                        <p><strong class="w-32 inline-block">Nama:</strong> MUHAMAD FIQRI AL FARIZHI</p>
-                        <p><strong class="w-32 inline-block">Mata Kuliah:</strong> Pemrograman Web 1</p>
-                        <p><strong class="w-32 inline-block">Institusi:</strong> Universitas Ma'soem</p>
-                        <p><strong class="w-32 inline-block">Pertemuan:</strong> V (Hyperlink)</p>
-                        <hr class="my-4">
-                        <p class="leading-relaxed">
+
+                    <div class="md:col-span-2">
+                        <dl class="divide-y divide-slate-200/80">
+                            <div class="py-3 flex flex-col sm:flex-row sm:gap-6">
+                                <dt class="sm:w-36 text-sm text-slate-400">Nama</dt>
+                                <dd class="font-medium">MUHAMAD FIQRI AL FARIZHI</dd>
+                            </div>
+                            <div class="py-3 flex flex-col sm:flex-row sm:gap-6">
+                                <dt class="sm:w-36 text-sm text-slate-400">Mata Kuliah</dt>
+                                <dd class="font-medium">Pemrograman Web 1</dd>
+                            </div>
+                            <div class="py-3 flex flex-col sm:flex-row sm:gap-6">
+                                <dt class="sm:w-36 text-sm text-slate-400">Institusi</dt>
+                                <dd class="font-medium">Universitas Ma'soem</dd>
+                            </div>
+                            <div class="py-3 flex flex-col sm:flex-row sm:gap-6">
+                                <dt class="sm:w-36 text-sm text-slate-400">Pertemuan</dt>
+                                <dd class="font-medium">V (Hyperlink)</dd>
+                            </div>
+                        </dl>
+
+                        <p class="mt-6 text-slate-600 leading-relaxed">
                             Saya sedang mempelajari dasar-dasar pengembangan web menggunakan HTML dan CSS. Pada modul ke-5 ini, fokus pembahasannya adalah membuat link antar halaman (relative), link luar (absolute), anchor link, serta mailto link.
                         </p>
                     </div>
                 </div>
             </section>
 
-            <!-- 3. PAGE: ABOUT -->
-            <section id="page-about" class="hidden space-y-4">
-                <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Tentang Website Ini</h2>
-                <p class="text-slate-700 leading-relaxed">
-                    Website ini dibuat untuk memenuhi tugas **Pertemuan 5** mata kuliah Pemrograman Web 1 di Universitas Ma'soem.
+            <!-- 3. ABOUT -->
+            <section id="page-about" class="page hidden">
+                <p class="text-xs uppercase tracking-widest text-accent font-semibold mb-2">Tentang</p>
+                <h2 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-4">Tentang Website Ini</h2>
+                <p class="text-slate-600 leading-relaxed max-w-2xl mb-8">
+                    Website ini dibuat untuk memenuhi tugas <strong class="text-ink">Pertemuan 5</strong> mata kuliah Pemrograman Web 1 di Universitas Ma'soem.
                 </p>
-                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mt-4">
-                    <h3 class="font-semibold text-slate-800 mb-2">Materi yang Dipelajari:</h3>
-                    <ul class="list-disc list-inside space-y-1 text-slate-600">
-                        <li><strong>Link Relative:</strong> Navigasi antar dokumen HTML lokal.</li>
-                        <li><strong>Link Absolute:</strong> Menghubungkan ke alamat domain luar (seperti Google).</li>
-                        <li><strong>Link Email:</strong> Membuka aplikasi email dengan protokol <code class="bg-slate-200 px-1 py-0.5 rounded text-xs">mailto: Muhamadfiqrialfarizhi@gmail.com</code>.</li>
-                        <li><strong>Anchor Link:</strong> Navigasi ke bagian tertentu pada halaman yang sama.</li>
-                    </ul>
-                </div>
-            </section>
 
-            <!-- 4. PAGE: GALLERY -->
-            <section id="page-gallery" class="hidden space-y-4">
-                <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Galeri Kegemaran</h2>
-                <p class="text-slate-600 mb-4">Berikut adalah beberapa kegiatan dan kegemaran yang biasa saya lakukan di waktu liburan:</p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="border rounded-lg overflow-hidden bg-slate-50 shadow-sm hover:shadow transition">
-                        <img src="maxv.jpg" alt="Hobi 1" class="w-full h-40 object-cover">
-                        <div class="p-3">
-                            <h4 class="font-bold text-slate-800">Menonton F1</h4>
-                            <p class="text-xs text-slate-500 mt-1">Menonton balapan Formula 1 dengan antusiasme tinggi.</p>
-                        </div>
+                <h3 class="font-semibold mb-4">Materi yang Dipelajari</h3>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="card p-6">
+                        <span class="text-accent font-serif text-2xl font-semibold">01</span>
+                        <h4 class="font-semibold mt-2">Link Relative</h4>
+                        <p class="text-sm text-slate-600 mt-1">Navigasi antar dokumen HTML lokal.</p>
                     </div>
-                    <div class="border rounded-lg overflow-hidden bg-slate-50 shadow-sm hover:shadow transition">
-                        <img src="indomi.jpg" alt="Hobi 2" class="w-full h-40 object-cover">
-                        <div class="p-3">
-                            <h4 class="font-bold text-slate-800">Makan Indomie</h4>
-                            <p class="text-xs text-slate-500 mt-1">Memakan Indomie dengan lauk pauk favorit.</p>
-                        </div>
+                    <div class="card p-6">
+                        <span class="text-accent font-serif text-2xl font-semibold">02</span>
+                        <h4 class="font-semibold mt-2">Link Absolute</h4>
+                        <p class="text-sm text-slate-600 mt-1">Menghubungkan ke alamat domain luar (seperti Google).</p>
                     </div>
-                    <div class="border rounded-lg overflow-hidden bg-slate-50 shadow-sm hover:shadow transition">
-                        <img src="susu.jpeg" alt="Hobi 3" class="w-full h-40 object-cover">
-                        <div class="p-3">
-                            <h4 class="font-bold text-slate-800">Graphic Design</h4>
-                            <p class="text-xs text-slate-500 mt-1">mengedit desain grafis dengan berbagai software.</p>
-                        </div>
+                    <div class="card p-6">
+                        <span class="text-accent font-serif text-2xl font-semibold">03</span>
+                        <h4 class="font-semibold mt-2">Link Email</h4>
+                        <p class="text-sm text-slate-600 mt-1">Membuka aplikasi email dengan protokol <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">mailto:</code></p>
+                    </div>
+                    <div class="card p-6">
+                        <span class="text-accent font-serif text-2xl font-semibold">04</span>
+                        <h4 class="font-semibold mt-2">Anchor Link</h4>
+                        <p class="text-sm text-slate-600 mt-1">Navigasi ke bagian tertentu pada halaman yang sama.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- 5. PAGE: KONTAK -->
-            <section id="page-kontak" class="hidden space-y-4">
-                <h2 class="text-2xl font-bold text-slate-800 border-b pb-2">Hubungi Saya</h2>
-                <p class="text-slate-600">Jika Anda memiliki pertanyaan atau ingin berdiskusi, silakan kirim pesan melalui kontak di bawah ini:</p>
+            <!-- 4. GALLERY -->
+            <section id="page-gallery" class="page hidden">
+                <p class="text-xs uppercase tracking-widest text-accent font-semibold mb-2">Kegemaran</p>
+                <h2 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-4">Galeri Kegemaran</h2>
+                <p class="text-slate-600 mb-8 max-w-2xl">Berikut adalah beberapa kegiatan dan kegemaran yang biasa saya lakukan di waktu liburan.</p>
 
-                <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 flex flex-col md:flex-row justify-between items-center gap-4 mt-4">
-                    <div>
-                        <h3 class="font-bold text-blue-900 text-lg">Kirim Email Langsung</h3>
-                        <p class="text-sm text-blue-700">Klik tombol di samping untuk membuka aplikasi penyedia email Anda.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <article class="gallery-item card overflow-hidden group">
+                        <div class="aspect-[4/3] overflow-hidden bg-gradient-to-br from-indigo-200 to-sky-200">
+                            <img src="maxv.jpg" alt="Menonton F1" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                        </div>
+                        <div class="p-5">
+                            <h4 class="font-serif text-lg font-semibold">Menonton F1</h4>
+                            <p class="text-sm text-slate-600 mt-1">Menonton balapan Formula 1 dengan antusiasme tinggi.</p>
+                        </div>
+                    </article>
+
+                    <article class="gallery-item card overflow-hidden group">
+                        <div class="aspect-[4/3] overflow-hidden bg-gradient-to-br from-orange-200 to-amber-100">
+                            <img src="indomi.jpg" alt="Makan Indomie" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                        </div>
+                        <div class="p-5">
+                            <h4 class="font-serif text-lg font-semibold">Makan Indomie</h4>
+                            <p class="text-sm text-slate-600 mt-1">Memakan Indomie dengan lauk pauk favorit.</p>
+                        </div>
+                    </article>
+
+                    <article class="gallery-item card overflow-hidden group">
+                        <div class="aspect-[4/3] overflow-hidden bg-gradient-to-br from-fuchsia-200 to-rose-100">
+                            <img src="susu.jpeg" alt="Graphic Design" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                        </div>
+                        <div class="p-5">
+                            <h4 class="font-serif text-lg font-semibold">Graphic Design</h4>
+                            <p class="text-sm text-slate-600 mt-1">Mengedit desain grafis dengan berbagai software.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 5. KONTAK -->
+            <section id="page-kontak" class="page hidden">
+                <p class="text-xs uppercase tracking-widest text-accent font-semibold mb-2">Kontak</p>
+                <h2 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-4">Hubungi Saya</h2>
+                <p class="text-slate-600 mb-8 max-w-2xl">Jika Anda memiliki pertanyaan atau ingin berdiskusi, silakan kirim pesan melalui kontak di bawah ini.</p>
+
+                <div class="card p-6 md:p-8 bg-gradient-to-br from-indigo-50/80 to-fuchsia-50/60">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+                        <div>
+                            <h3 class="font-serif text-xl font-semibold">Kirim Email Langsung</h3>
+                            <p class="text-sm text-slate-600 mt-1">Klik tombol di samping untuk membuka aplikasi email Anda.</p>
+                        </div>
+                        <a href="mailto:muhamadfiqrialfarizhi@gmail.com" class="btn-primary self-start md:self-auto">
+                            Kirim Email
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                        </a>
                     </div>
-                    <a href="mailto:muhamadfiqrialfarizhi@gmail.com" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium shadow hover:bg-blue-700 transition whitespace-nowrap">
-                        📧 Kirim Email
-                    </a>
                 </div>
 
-                <div class="border-t pt-4 mt-6">
-                    <p class="text-sm text-slate-500"><strong>Alamat email:</strong> muhamadfiqrialfarizhi@gmail.com</p>
-                    <p class="text-sm text-slate-500"><strong>Telpon:</strong> 082126147757</p>
+                <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                    <div class="card p-5">
+                        <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">Alamat email</p>
+                        <p class="font-medium break-all">muhamadfiqrialfarizhi@gmail.com</p>
+                    </div>
+                    <div class="card p-5">
+                        <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">Telepon</p>
+                        <p class="font-medium">082126147757</p>
+                    </div>
                 </div>
             </section>
 
         </main>
-
-        <!-- Footer -->
-        <footer class="mt-8 text-center text-sm text-slate-500 pb-4">
-            <p>&copy; Pemrograman Web 1 - Universitas Ma'soem | Pertemuan V (Hyperlink)</p>
-        </footer>
-
     </div>
 
-    <!-- JavaScript Navigasi Tab Modular -->
+    <!-- Footer -->
+    <footer class="max-w-5xl mx-auto w-full px-5 md:px-8 py-8 text-center text-sm text-slate-400">
+        <div class="h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent mb-6"></div>
+        <p>&copy; Pemrograman Web 1 &middot; Universitas Ma'soem &middot; Pertemuan V (Hyperlink)</p>
+    </footer>
+
     <script>
+        const tabs = ['home', 'profil', 'about', 'gallery', 'kontak'];
+
         function switchTab(tabName) {
-            // Sembunyikan semua section
-            const sections = ['home', 'profil', 'about', 'gallery', 'kontak'];
-            sections.forEach(id => {
-                const page = document.getElementById('page-' + id);
-                const nav = document.getElementById('nav-' + id);
-                
-                if (page) page.classList.add('hidden');
-                if (nav) {
-                    nav.classList.remove('bg-red-100', 'font-bold', 'underline');
-                }
+            if (!tabs.includes(tabName)) tabName = 'home';
+
+            tabs.forEach(id => {
+                document.getElementById('page-' + id).classList.add('hidden');
+                document.getElementById('nav-' + id).classList.remove('active');
             });
 
-            // Tampilkan section yang dipilih
-            const activePage = document.getElementById('page-' + tabName);
-            const activeNav = document.getElementById('nav-' + tabName);
-            
-            if (activePage) {
-                activePage.classList.remove('hidden');
-            }
-            if (activeNav) {
-                activeNav.classList.add('bg-red-100', 'font-bold', 'underline');
-            }
+            document.getElementById('page-' + tabName).classList.remove('hidden');
+            document.getElementById('nav-' + tabName).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Setel tab default ke 'home' saat halaman dimuat
+        // Buka tab sesuai hash URL (anchor link), default: home
         window.addEventListener('DOMContentLoaded', () => {
-            switchTab('home');
+            switchTab(location.hash.replace('#', '') || 'home');
+        });
+        window.addEventListener('hashchange', () => {
+            switchTab(location.hash.replace('#', '') || 'home');
         });
     </script>
 </body>
